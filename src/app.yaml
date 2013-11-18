@@ -1,22 +1,13 @@
-application: kseguys
+application: talk-here
 version: 1
 runtime: python27
 api_version: 1
 threadsafe: yes
 
-inbound_services:
-- warmup
 
 handlers:
-- url: /
-  static_files: static/waitamoment.html
-  upload: static/waitamoment.html
+- url: /.*
+  script: main.app
 
-- url: /(.*)
-  static_files: \1
-  upload: (.*)
-
-
-libraries:
-- name: webapp2
-  version: "2.5.2"
+- url: /static
+  static_dir: static
