@@ -6,6 +6,13 @@ threadsafe: yes
 
 
 handlers:
+
+- url: /robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
+  mime_type: text/plain
+  expiration: 10000d
+
 - url: /
   script: main.app
 
