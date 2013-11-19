@@ -1,4 +1,4 @@
-from web.template import CompiledTemplate, ForLoop, TemplateResult
+from lib.web.template import CompiledTemplate, ForLoop, TemplateResult
 
 
 # coding: utf-8

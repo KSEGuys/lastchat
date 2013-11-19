@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import web
+from lib import web
 
 urls = (
         "/","index",
