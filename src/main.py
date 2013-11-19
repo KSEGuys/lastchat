@@ -2,7 +2,7 @@
 import web
 
 urls = (
-        "/.*","index",
+        "/","index",
         )
 
 app = web.application(urls, globals())
