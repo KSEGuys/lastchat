@@ -1072,6 +1072,7 @@ def compile_templates(root):
                 dirnames.remove(d) # don't visit this dir
 
         out = open(os.path.join(dirpath, '__init__.py'), 'w')
+        # Wayne: change 'from web.template...' to 'from lib.web.template...' because we put web under the lib module
         out.write('from lib.web.template import CompiledTemplate, ForLoop, TemplateResult\n\n')
         if dirnames:
             out.write("import " + ", ".join(dirnames))
