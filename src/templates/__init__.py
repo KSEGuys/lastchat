@@ -2,12 +2,14 @@ from lib.web.template import CompiledTemplate, ForLoop, TemplateResult
 
 
 # coding: utf-8
-def homepage():
-    __lineoffset__ = -5
+def homepage(token):
+    __lineoffset__ = -4
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
     self['title'] = join_(u'Talk here! - Homepage')
+    extend_([u'<input type="hidden" name="token" id="token" value="', escape_(token, True), u'" />\n'])
     extend_([u'<h1>Talk here! </h1>\n'])
+    extend_([u'<script type="text/javascript" src="/_ah/channel/jsapi"></script>\n'])
 
     return self
 
@@ -28,8 +30,8 @@ def layout (content):
     extend_([u'    </head>\n'])
     extend_([u'    <body>\n'])
     extend_([u'        ', escape_(content, False), u'\n'])
-    extend_([u'        <script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-1.10.2.min.js"/>\n'])
-    extend_([u'        <script type="text/javascript" charset="utf-8" src="static/js/bootstrap.min.js"/>\n'])
+    extend_([u'        <script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>\n'])
+    extend_([u'        <script type="text/javascript" charset="utf-8" src="static/js/bootstrap.min.js"></script>\n'])
     extend_([u'    </body>\n'])
     extend_([u'</html>\n'])
 
