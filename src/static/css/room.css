@@ -5,6 +5,6 @@ div.editor.modal-footer div{
 div.message-container
 {
     min-height:50%;
-    height-50%;
+    height:50%;
     overflow:auto;
 }
