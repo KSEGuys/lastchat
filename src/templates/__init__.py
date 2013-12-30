@@ -65,7 +65,7 @@ def room():
     extend_([u'                            <span class="timestamp">1 mins ago</span>\n'])
     extend_([u'                        </div>\n'])
     extend_([u'                        <div class="content">\n'])
-    extend_([u'                            <span>True</span>\n'])
+    extend_([u'                            <span>\u4e2d\u6587\u4e0d\u77e5\u9053\u884c\u4e0d\u884c</span>\n'])
     extend_([u'                        </div>\n'])
     extend_([u'                    </div>\n'])
     extend_([u'                </div>\n'])

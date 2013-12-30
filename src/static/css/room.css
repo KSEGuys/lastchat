@@ -8,3 +8,62 @@ div.message-container
     height:50%;
     overflow:auto;
 }
+
+div.message
+{
+    width:70%;
+    padding:1em; 
+    margin-bottom: 5px;
+
+    float:right;
+    background-color:#e9eaee;
+
+    -webkit-box-shadow: 6px 6px 9px rgba(50, 50, 50, 0.48);
+    -moz-box-shadow:    6px 6px 9px rgba(50, 50, 50, 0.48);
+    box-shadow:         6px 6px 9px rgba(50, 50, 50, 0.48);
+
+    -webkit-border-radius: 20px;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius: 20px;
+    -moz-border-radius-bottomright: 0;
+    border-radius: 20px;
+    border-bottom-right-radius: 0;
+}
+
+div.message.self
+{
+    float:left;
+
+    background-color:#d6f7a0;
+
+    -webkit-box-shadow: -6px 6px 9px rgba(50, 50, 50, 0.48);
+    -moz-box-shadow:    -6px 6px 9px rgba(50, 50, 50, 0.48);
+    box-shadow:         -6px 6px 9px rgba(50, 50, 50, 0.48);
+
+    -webkit-border-radius: 20px;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius: 20px;
+    -moz-border-radius-bottomleft: 0;
+    border-radius: 20px;
+    border-bottom-left-radius: 0;
+
+}
+
+div.message div.text div.info
+{
+    color: #716b7a;
+    font-size: 0.8em;
+}
+
+div.message div.text
+{
+    font-family: "Helvetica Neue","Helvetica","Arial","sans-serif";
+    text-align: right;
+}
+
+
+div.message.self div.text
+{
+    text-align: left;
+}
+
