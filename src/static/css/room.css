@@ -55,6 +55,11 @@ div.message div.text div.info
     font-size: 0.8em;
 }
 
+time.timeago
+{
+    margin-left:1em;
+}
+
 div.message div.text
 {
     font-family: "Helvetica Neue","Helvetica","Arial","sans-serif";
