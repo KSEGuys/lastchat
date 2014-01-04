@@ -17,6 +17,8 @@ def layout (content):
     extend_([u'        ', escape_(content, False), u'\n'])
     extend_([u'        <script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>\n'])
     extend_([u'        <script type="text/javascript" charset="utf-8" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>\n'])
+    extend_([u'        <script type="text/javascript" charset="utf-8" src="http://cdn.bootcss.com/jquery-timeago/1.1.0/jquery.timeago.min.js"></script>\n'])
+    extend_([u'        <script type="text/javascript" charset="utf-8" src="/static/js/base.js"></script>\n'])
     extend_([u'    </body>\n'])
     extend_([u'</html>\n'])
 
@@ -35,7 +37,7 @@ def message (message):
     extend_([u'    <div class="text">\n'])
     extend_([u'        <div class="info">\n'])
     extend_([u'            <span class="name">', escape_(message.name, True), u'</span>\n'])
-    extend_([u'            <span class="timestamp">', escape_(message.timestamp, True), u'</span>\n'])
+    extend_([u'            <time class="timeago" datetime=\'', escape_(message.timestamp, True), u"'></time>\n"])
     extend_([u'        </div>\n'])
     extend_([u'        <div class="content">\n'])
     extend_([u'            <span>', escape_(message.content, True), u'</span>\n'])
@@ -49,7 +51,7 @@ message = CompiledTemplate(message, 'templates/message.html')
 join_ = message._join; escape_ = message._escape
 
 # coding: utf-8
-def room (render,messages):
+def room (messages):
     __lineoffset__ = -4
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
