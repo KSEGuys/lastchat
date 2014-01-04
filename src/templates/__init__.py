@@ -26,8 +26,31 @@ layout = CompiledTemplate(layout, 'templates/layout.html')
 join_ = layout._join; escape_ = layout._escape
 
 # coding: utf-8
-def room():
-    __lineoffset__ = -5
+def message (message):
+    __lineoffset__ = -4
+    loop = ForLoop()
+    self = TemplateResult(); extend_ = self.extend
+    extend_([u'<div class= "message ', escape_(message.styleClass, True), u'">\n'])
+    extend_([u'    <div class="avatar"></div>\n'])
+    extend_([u'    <div class="text">\n'])
+    extend_([u'        <div class="info">\n'])
+    extend_([u'            <span class="name">', escape_(message.name, True), u'</span>\n'])
+    extend_([u'            <span class="timestamp">', escape_(message.timestamp, True), u'</span>\n'])
+    extend_([u'        </div>\n'])
+    extend_([u'        <div class="content">\n'])
+    extend_([u'            <span>', escape_(message.content, True), u'</span>\n'])
+    extend_([u'        </div>\n'])
+    extend_([u'    </div>\n'])
+    extend_([u'</div>\n'])
+
+    return self
+
+message = CompiledTemplate(message, 'templates/message.html')
+join_ = message._join; escape_ = message._escape
+
+# coding: utf-8
+def room (render,messages):
+    __lineoffset__ = -4
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
     self['title'] = join_(u'Talk here! - Homepage')
@@ -45,30 +68,8 @@ def room():
     extend_([u'                <h4>Chris leaves</h4>\n'])
     extend_([u'            </div>\n'])
     extend_([u'            <div class="message-container modal-body">\n'])
-    extend_([u'                <div class="message">\n'])
-    extend_([u'                    <div class="avatar"></div>\n'])
-    extend_([u'                    <div class="text">\n'])
-    extend_([u'                        <div class="info">\n'])
-    extend_([u'                            <span class="name">Tony Xiao</span>\n'])
-    extend_([u'                            <span class="timestamp">1 mins ago</span>\n'])
-    extend_([u'                        </div>\n'])
-    extend_([u'                        <div class="content">\n'])
-    extend_([u'                            <span>I just heard Chris has left the company. What a pity!</span>\n'])
-    extend_([u'                        </div>\n'])
-    extend_([u'                    </div>\n'])
-    extend_([u'                </div>\n'])
-    extend_([u'                <div class="message self">\n'])
-    extend_([u'                    <div class="avatar"></div>\n'])
-    extend_([u'                    <div class="text">\n'])
-    extend_([u'                        <div class="info">\n'])
-    extend_([u'                            <span class="name">Wayne Wang</span>\n'])
-    extend_([u'                            <span class="timestamp">1 mins ago</span>\n'])
-    extend_([u'                        </div>\n'])
-    extend_([u'                        <div class="content">\n'])
-    extend_([u'                            <span>\u4e2d\u6587\u4e0d\u77e5\u9053\u884c\u4e0d\u884c</span>\n'])
-    extend_([u'                        </div>\n'])
-    extend_([u'                    </div>\n'])
-    extend_([u'                </div>\n'])
+    for message in loop.setup(messages):
+        extend_(['                ', escape_(render.message(message), False), u'\n'])
     extend_([u'            </div>\n'])
     extend_([u'            <div class="editor modal-footer">\n'])
     extend_([u'                <div class="chatbox">\n'])
