@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from lib import web
 from google.appengine.api import channel
 from google.appengine.ext import ndb
@@ -7,7 +9,7 @@ from models import Room,Message
 
 urls = (
         "/","index",
-        #"/init",'init'
+        "/init",'init'
         )
 
 utils = {
@@ -27,13 +29,24 @@ class index:
 
 class init:
     def GET(self):
-        for i in range(10):
-            room = Room(Id=i, Topic='Room '+str(i))
-            room.put()
+        for room in Room.query().fetch():
+            room.key.delete()
 
-            for j in range(10):
-                message = Message(Room=room,User="Wayne Wang",Content=str(j)+" Test Message")
-                message.put()
+        for message in Message.query().fetch():
+            message.key.delete()
+
+        room = Room(Id=1,Topic='Default Room')
+        room.put()
+
+        contents = ['quick brown fox jumps over the lazy dog',
+                u'中文似乎也可以啊',
+                '<script>alert("hi")</script>',
+                'This is the fourth message',
+                'This is the last message',
+                u'骗你的,这才是第一条消息']
+        for content in contents:
+            message = Message(Room=room,User="Wayne Wang",Content=content)
+            message.put()
 
         return 'success'
 
