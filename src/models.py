@@ -1,24 +1,14 @@
-import datetime
+from google.appengine.ext import ndb
 
-class message:
-    '''
-        message
-    '''
-    def __init__(self):
-        self.name = ''
-        self.timestamp = datetime.datetime.now()
-        self.content = 'This is a test message'
-        self.styleClass = ''
+class Room(ndb.Model):
+    Id = ndb.IntegerProperty()
+    Topic = ndb.StringProperty()
 
-    @classmethod
-    def sample(cls):
-        results = []
-        for i in range(1,10):
-            a = cls()
-            a.name = 'user' + str(i)
-            a.content = 'Test message' + str(i)
-            if i%3 == 0:
-                a.styleClass = 'self'
-            results.append(a)
-        return results
+class Message(ndb.Model):
+    Timestamp = ndb.DateTimeProperty(auto_now_add=True)
+    User = ndb.StringProperty()
+    Content = ndb.StringProperty(indexed=False)
+    Room = ndb.StructuredProperty(Room)
+
+
 
