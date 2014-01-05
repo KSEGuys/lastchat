@@ -30,10 +30,16 @@ class index:
     def GET(self):
         return render.index()
 
+class room:
+    def POST(self):
+        roomId = web.input().id
+        messages = Message.query(Message.Room.Id==roomId).order(Message.Timestamp).fetch()
+        return render.room(messages)
+
 class rooms:
     def GET(self):
-        messages = Message.query(Message.Room.Id==1).order(Message.Timestamp).fetch()
-        return render.room(messages)
+        rooms = Room.query().fetch()
+        return render.rooms(rooms)
 
 class identity:
     def POST(self):

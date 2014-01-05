@@ -1,0 +1,35 @@
+$def with(rooms)
+$var title='Talk here! - Rooms'
+<script type="text/javascript" charset="utf-8" src='/static/js/page.rooms.js'></script>
+<link rel="stylesheet" href="/static/css/rooms.css" title="" type="text/css" />
+<div id="rooms" class="center-block">
+    <div>
+        <div id="rooms-slide-carousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                $for i in range(0,len(rooms)):
+                    <li data-target="#rooms-slide-carousel" data-slide-to="$i"></li>
+            </ol>
+            <div class="carousel-inner">
+                $for room in rooms:
+                <div class="item
+                    $if loop.first:
+                        active
+                    "">
+                        <img src="/static/images/room-background-default.jpg">
+                        <div class="carousel-caption">
+                            <h3>$room.Topic</h3>
+                            <p>Go to</p>
+                        </div>
+                    </div>
+            </div>
+            <a class="left carousel-control" href="#rooms-slide-carousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+
+            <a class="right carousel-control" href="#rooms-slide-carousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+
+        </div>
+    </div>
+</div>

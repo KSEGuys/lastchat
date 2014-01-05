@@ -119,3 +119,48 @@ def room (messages):
 room = CompiledTemplate(room, 'templates/room.html')
 join_ = room._join; escape_ = room._escape
 
+# coding: utf-8
+def rooms(rooms):
+    __lineoffset__ = -4
+    loop = ForLoop()
+    self = TemplateResult(); extend_ = self.extend
+    self['title'] = 'Talk here! - Rooms'
+    extend_([u'<script type="text/javascript" charset="utf-8" src=\'/static/js/page.rooms.js\'></script>\n'])
+    extend_([u'<link rel="stylesheet" href="/static/css/rooms.css" title="" type="text/css" />\n'])
+    extend_([u'<div id="rooms" class="center-block">\n'])
+    extend_([u'    <div>\n'])
+    extend_([u'        <div id="rooms-slide-carousel" class="carousel slide" data-ride="carousel">\n'])
+    extend_([u'            <ol class="carousel-indicators">\n'])
+    for i in loop.setup(range(0,len(rooms))):
+        extend_(['                ', u'<li data-target="#rooms-slide-carousel" data-slide-to="', escape_(i, True), u'"></li>\n'])
+    extend_([u'            </ol>\n'])
+    extend_([u'            <div class="carousel-inner">\n'])
+    for room in loop.setup(rooms):
+        extend_(['                ', u'<div class="item\n'])
+        if loop.first:
+            extend_(['                    ', u'active\n'])
+        extend_(['                ', u'    "">\n'])
+        extend_(['                ', u'        <img src="/static/images/room-background-default.jpg">\n'])
+        extend_(['                ', u'        <div class="carousel-caption">\n'])
+        extend_(['                ', u'            <h3>', escape_(room.Topic, True), u'</h3>\n'])
+        extend_(['                ', u'            <p>Go to</p>\n'])
+        extend_(['                ', u'        </div>\n'])
+        extend_(['                ', u'    </div>\n'])
+    extend_([u'            </div>\n'])
+    extend_([u'            <a class="left carousel-control" href="#rooms-slide-carousel" data-slide="prev">\n'])
+    extend_([u'                <span class="glyphicon glyphicon-chevron-left"></span>\n'])
+    extend_([u'            </a>\n'])
+    extend_([u'\n'])
+    extend_([u'            <a class="right carousel-control" href="#rooms-slide-carousel" data-slide="prev">\n'])
+    extend_([u'                <span class="glyphicon glyphicon-chevron-right"></span>\n'])
+    extend_([u'            </a>\n'])
+    extend_([u'\n'])
+    extend_([u'        </div>\n'])
+    extend_([u'    </div>\n'])
+    extend_([u'</div>\n'])
+
+    return self
+
+rooms = CompiledTemplate(rooms, 'templates/rooms.html')
+join_ = rooms._join; escape_ = rooms._escape
+
