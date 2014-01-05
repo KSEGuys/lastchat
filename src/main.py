@@ -5,12 +5,15 @@ from lib import web
 from google.appengine.api import channel
 from google.appengine.ext import ndb
 from datetime import datetime
-from models import Room,Message
+from models import Room,Message,Identity
+
+import uuid
 
 urls = (
         "/",'index',
         "/rooms","rooms",
-        "/init",'init'
+        "/init",'init',
+        '/identity','identity'
         )
 
 utils = {
@@ -31,6 +34,28 @@ class rooms:
     def GET(self):
         messages = Message.query(Message.Room.Id==1).order(Message.Timestamp).fetch()
         return render.room(messages)
+
+class identity:
+    def GET(self):
+        name = web.input().name
+        ip = web.ctx.ip
+        cookieName = 'identity'
+        existedIdentity = web.cookies().get(cookieName)
+        newIdentity = existedIdentity
+
+        if existedIdentity:
+            entity = Identity.query(Identity.UUID==existedIdentity).fetch(1)
+            if entity:
+                entity[0].DisplayName=name
+                entity[0].IpAddress=ip
+                entity[0].put()
+        else:
+            newEntity = Identity(UUID=str(uuid.uuid4()),DisplayName=name,IpAddress=ip)
+            newEntity.put()
+            newIdentity = newEntity.UUID
+
+        web.setcookie(cookieName,newIdentity)
+        return newIdentity
 
 class init:
     '''

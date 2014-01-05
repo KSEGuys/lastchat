@@ -10,5 +10,8 @@ class Message(ndb.Model):
     Content = ndb.StringProperty(indexed=False)
     Room = ndb.StructuredProperty(Room)
 
-
+class Identity(ndb.Model):
+    UUID = ndb.StringProperty()
+    DisplayName = ndb.StringProperty()
+    IpAddress = ndb.StringProperty(indexed=False)
 
