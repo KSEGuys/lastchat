@@ -19,6 +19,7 @@ def index():
     extend_([u'        </span>\n'])
     extend_([u'    </div>\n'])
     extend_([u'</div>\n'])
+    extend_([u'<script type="text/javascript" charset="utf-8" src=\'/static/js/page.index.js\'></script>\n'])
 
     return self
 
@@ -35,14 +36,14 @@ def layout (content):
     extend_([u'        <meta http-equiv="content-type" content="text/html; charset=utf-8" />\n'])
     extend_([u'        <title>', escape_(content.title, True), u'</title>\n'])
     extend_([u'        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" title="" type="text/css" />\n'])
-    extend_([u'    </head>\n'])
-    extend_([u'    </head>\n'])
-    extend_([u'    <body>\n'])
-    extend_([u'        ', escape_(content, False), u'\n'])
     extend_([u'        <script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>\n'])
     extend_([u'        <script type="text/javascript" charset="utf-8" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>\n'])
     extend_([u'        <script type="text/javascript" charset="utf-8" src="http://cdn.bootcss.com/jquery-timeago/1.1.0/jquery.timeago.min.js"></script>\n'])
+    extend_([u'        <script type="text/javascript" charset="utf-8" src="/static/js/jquery.cookie.js"></script>\n'])
     extend_([u'        <script type="text/javascript" charset="utf-8" src="/static/js/base.js"></script>\n'])
+    extend_([u'    </head>\n'])
+    extend_([u'    <body>\n'])
+    extend_([u'        ', escape_(content, False), u'\n'])
     extend_([u'    </body>\n'])
     extend_([u'</html>\n'])
 

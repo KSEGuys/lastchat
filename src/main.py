@@ -36,7 +36,7 @@ class rooms:
         return render.room(messages)
 
 class identity:
-    def GET(self):
+    def POST(self):
         name = web.input().name
         ip = web.ctx.ip
         cookieName = 'identity'
@@ -46,7 +46,8 @@ class identity:
         if existedIdentity:
             entity = Identity.query(Identity.UUID==existedIdentity).fetch(1)
             if entity:
-                entity[0].DisplayName=name
+                if name:
+                    entity[0].DisplayName=name
                 entity[0].IpAddress=ip
                 entity[0].put()
         else:
