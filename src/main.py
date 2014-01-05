@@ -8,7 +8,8 @@ from datetime import datetime
 from models import Room,Message
 
 urls = (
-        "/","index",
+        "/",'index',
+        "/rooms","rooms",
         "/init",'init'
         )
 
@@ -24,10 +25,17 @@ render = web.template.render('templates/',base='layout',globals=utils)
 
 class index:
     def GET(self):
+        return render.index()
+
+class rooms:
+    def GET(self):
         messages = Message.query(Message.Room.Id==1).order(Message.Timestamp).fetch()
         return render.room(messages)
 
 class init:
+    '''
+        for test purpose
+    '''
     def GET(self):
         for room in Room.query().fetch():
             room.key.delete()

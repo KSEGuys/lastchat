@@ -2,6 +2,28 @@ from lib.web.template import CompiledTemplate, ForLoop, TemplateResult
 
 
 # coding: utf-8
+def index():
+    __lineoffset__ = -5
+    loop = ForLoop()
+    self = TemplateResult(); extend_ = self.extend
+    self['title'] = 'Welcome'
+    extend_([u'<link rel="stylesheet" href="/static/css/index.css" type="text/css" />\n'])
+    extend_([u'<div class="center-block go-block">\n'])
+    extend_([u'    <img class="img-welcome center-block" src="/static/images/welcome.png" alt="Welcome" />\n'])
+    extend_([u'    <div class="input-group input-group-lg">\n'])
+    extend_([u'        <input type="text" class="form-control focusedInput" name="Username" id="Username" value="" placeholder="Username"/>\n'])
+    extend_([u'        <span class="input-group-btn">\n'])
+    extend_([u'            <button class="btn btn-primary btn-lg" type="button">Go!</button>\n'])
+    extend_([u'        </span>\n'])
+    extend_([u'    </div>\n'])
+    extend_([u'</div>\n'])
+
+    return self
+
+index = CompiledTemplate(index, 'templates/index.html')
+join_ = index._join; escape_ = index._escape
+
+# coding: utf-8
 def layout (content):
     __lineoffset__ = -4
     loop = ForLoop()
