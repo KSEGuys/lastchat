@@ -13,28 +13,30 @@ urls = (
         "/",'index',
         "/rooms","rooms",
         "/init",'init',
-        '/identity','identity'
+        '/identity','identity',
+        '/room/(.+)','room'
         )
 
-utils = {
-        #"render" : web.template.render('templates/'),
+templateGlobals = {
         "strftime": datetime.strftime,
         "str": str
         }
 
-utils["render"] = web.template.render('templates/',globals=utils)
+templateDir = 'templates'
 
-render = web.template.render('templates/',base='layout',globals=utils)
+plainRender = web.template.render(templateDir, globals=templateGlobals)
+templateGlobals["plainRender"] = plainRender
+render = web.template.render(templateDir,base='layout',globals=templateGlobals)
+templateGlobals["render"] = render
 
 class index:
     def GET(self):
         return render.index()
 
 class room:
-    def POST(self):
-        roomId = web.input().id
-        messages = Message.query(Message.Room.Id==roomId).order(Message.Timestamp).fetch()
-        return render.room(messages)
+    def GET(self,id):
+        messages = Message.query(Message.Room.Id==int(id)).order(Message.Timestamp).fetch()
+        return plainRender.room(messages)
 
 class rooms:
     def GET(self):

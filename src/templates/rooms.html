@@ -2,6 +2,7 @@ $def with(rooms)
 $var title='Talk here! - Rooms'
 <script type="text/javascript" charset="utf-8" src='/static/js/page.rooms.js'></script>
 <link rel="stylesheet" href="/static/css/rooms.css" title="" type="text/css" />
+<div class="modal fade" id="modal-room" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop='static'></div>
 <div id="rooms" class="center-block">
     <div>
         <div id="rooms-slide-carousel" class="carousel slide" data-ride="carousel">
@@ -18,7 +19,7 @@ $var title='Talk here! - Rooms'
                         <img src="/static/images/room-background-default.jpg">
                         <div class="carousel-caption">
                             <h3>$room.Topic</h3>
-                            <p>Go to</p>
+                            <a class="btn btn-primary" data-toggle="modal" href="/room/$room.Id" data-target="#modal-room">Join this room!</a>
                         </div>
                     </div>
             </div>

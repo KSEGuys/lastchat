@@ -1,12 +1,7 @@
 $def with (messages)
 $var title: Talk here! - Homepage
 
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#default-room-1">
-    Default room
-</button>
-
 <link rel="stylesheet" href="/static/css/room.css" title="" type="text/css" />
-<div class="room modal fade" id="default-room-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="topic modal-header">
@@ -15,7 +10,7 @@ $var title: Talk here! - Homepage
             </div>
             <div class="message-container modal-body">
                 $for message in messages:
-                    $:render.message(message)
+                    $:plainRender.message(message)
             </div>
             <div class="editor modal-footer">
                 <div class="chatbox">
@@ -28,7 +23,6 @@ $var title: Talk here! - Homepage
             </div>
         </div>
     </div>
-</div>
 
 
 <script type="text/javascript" src="/_ah/channel/jsapi"></script>
