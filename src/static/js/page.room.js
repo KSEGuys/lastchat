@@ -10,6 +10,10 @@ $(document).ready(function(){
         };
 
     bindEvent = function(){
+        $('button.action.clear').on('click',function(){
+            $('.chatbox textarea').val('');
+            });
+
         $('button.action.send').on('click',function(){
             var data, identity, roomId, content;
             identity = $.cookie('identity');
