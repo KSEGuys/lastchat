@@ -12,7 +12,6 @@ import uuid
 urls = (
         "/",'index',
         "/rooms","rooms",
-        "/init",'init',
         '/identity','identity',
         '/room/(.+)','room'
         )
@@ -35,7 +34,7 @@ class index:
 
 class room:
     def GET(self,id):
-        room = Room.query(Room.Id == int(id)).fetch(1)[0]
+        room = Room.query(Room.Id == int(id)).get()
         messages = Message.query(Message.Room.Id==int(id)).order(Message.Timestamp).fetch()
         room.messages = messages
         return plainRender.room(room)
@@ -54,12 +53,12 @@ class identity:
         newIdentity = existedIdentity
 
         if existedIdentity:
-            entity = Identity.query(Identity.UUID==existedIdentity).fetch(1)
+            entity = Identity.query(Identity.UUID==existedIdentity).get
             if entity:
                 if name:
-                    entity[0].DisplayName=name
-                entity[0].IpAddress=ip
-                entity[0].put()
+                    entity.DisplayName=name
+                entity.IpAddress=ip
+                entity.put()
         else:
             newEntity = Identity(UUID=str(uuid.uuid4()),DisplayName=name,IpAddress=ip)
             newEntity.put()
@@ -67,32 +66,6 @@ class identity:
 
         web.setcookie(cookieName,newIdentity)
         return newIdentity
-
-class init:
-    '''
-        for test purpose
-    '''
-    def GET(self):
-        for room in Room.query().fetch():
-            room.key.delete()
-
-        for message in Message.query().fetch():
-            message.key.delete()
-
-        room = Room(Id=1,Topic='Default Room')
-        room.put()
-
-        contents = ['quick brown fox jumps over the lazy dog',
-                u'中文似乎也可以啊',
-                '<script>alert("hi")</script>',
-                'This is the fourth message',
-                'This is the last message',
-                u'骗你的,这才是第一条消息']
-        for content in contents:
-            message = Message(Room=room,User="Wayne Wang",Content=content)
-            message.put()
-
-        return 'success'
 
 app = web.application(urls, globals())
 
