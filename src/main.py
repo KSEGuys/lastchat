@@ -55,8 +55,9 @@ class identity:
     def POST(self):
         name = web.input().name
         ip = web.ctx.ip
-        cookieName = 'identity'
-        existedIdentity = web.cookies().get(cookieName)
+        cookieName_identity = 'identity'
+        cookieName_name = 'name'
+        existedIdentity = web.cookies().get(cookieName_identity)
         newIdentity = existedIdentity
 
         if existedIdentity:
@@ -64,14 +65,20 @@ class identity:
             if entity:
                 if name:
                     entity.DisplayName=name
+                else:
+                    name = entity.DisplayName
+
                 entity.IpAddress=ip
                 entity.put()
+                web.setcookie
         else:
             newEntity = Identity(UUID=str(uuid.uuid4()),DisplayName=name,IpAddress=ip)
             newEntity.put()
             newIdentity = newEntity.UUID
 
-        web.setcookie(cookieName,newIdentity)
+        web.setcookie(cookieName_identity,newIdentity)
+        web.setcookie(cookieName_name,name)
+
         return newIdentity
 
 
