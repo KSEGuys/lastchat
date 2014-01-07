@@ -14,7 +14,8 @@ urls = (
         "/rooms","rooms",
         '/identity','identity',
         '/room/(.+)','room',
-        '/message','message'
+        '/message','message',
+        '/messagestyle','messageStyle'
         )
 
 templateGlobals = {
@@ -50,6 +51,10 @@ class message:
         data = web.input()
         Message.Put(data.Identity,data.Content,int(data.RoomId))
         return 'success'
+
+class messageStyle:
+    def GET(self):
+        return plainRender.message(Message())
 
 class identity:
     def POST(self):
