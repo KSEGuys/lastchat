@@ -13,7 +13,8 @@ urls = (
         "/",'index',
         "/rooms","rooms",
         '/identity','identity',
-        '/room/(.+)','room'
+        '/room/(.+)','room',
+        '/message','message'
         )
 
 templateGlobals = {
@@ -43,6 +44,12 @@ class rooms:
     def GET(self):
         rooms = Room.query().fetch()
         return render.rooms(rooms)
+
+class message:
+    def POST(self):
+        data = web.input()
+        Message.Put(data.Identity,data.Content,int(data.RoomId))
+        return 'success'
 
 class identity:
     def POST(self):

@@ -81,8 +81,10 @@ def room (room):
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
     self['title'] = join_(u'Talk here! - Homepage')
-    extend_([u'\n'])
+    extend_([u'<script type="text/javascript" charset="utf-8" src="/static/js/page.room.js"></script>\n'])
     extend_([u'<link rel="stylesheet" href="/static/css/room.css" title="" type="text/css" />\n'])
+    extend_([u'<input type="hidden" name="" id="roomId" value="', escape_(room.Id, True), u'" />\n'])
+    extend_([u'\n'])
     extend_([u'    <div class="modal-dialog">\n'])
     extend_([u'        <div class="modal-content">\n'])
     extend_([u'            <div class="topic modal-header">\n'])
