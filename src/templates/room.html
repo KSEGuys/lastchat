@@ -1,4 +1,4 @@
-$def with (messages)
+$def with (room)
 $var title: Talk here! - Homepage
 
 <link rel="stylesheet" href="/static/css/room.css" title="" type="text/css" />
@@ -6,10 +6,10 @@ $var title: Talk here! - Homepage
         <div class="modal-content">
             <div class="topic modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Chris leaves</h4>
+                <h4>$room.Topic</h4>
             </div>
             <div class="message-container modal-body">
-                $for message in messages:
+                $for message in room.messages:
                     $:plainRender.message(message)
             </div>
             <div class="editor modal-footer">

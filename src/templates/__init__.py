@@ -76,7 +76,7 @@ message = CompiledTemplate(message, 'templates/message.html')
 join_ = message._join; escape_ = message._escape
 
 # coding: utf-8
-def room (messages):
+def room (room):
     __lineoffset__ = -4
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
@@ -87,10 +87,10 @@ def room (messages):
     extend_([u'        <div class="modal-content">\n'])
     extend_([u'            <div class="topic modal-header">\n'])
     extend_([u'                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n'])
-    extend_([u'                <h4>Chris leaves</h4>\n'])
+    extend_([u'                <h4>', escape_(room.Topic, True), u'</h4>\n'])
     extend_([u'            </div>\n'])
     extend_([u'            <div class="message-container modal-body">\n'])
-    for message in loop.setup(messages):
+    for message in loop.setup(room.messages):
         extend_(['                ', escape_(plainRender.message(message), False), u'\n'])
     extend_([u'            </div>\n'])
     extend_([u'            <div class="editor modal-footer">\n'])

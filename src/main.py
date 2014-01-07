@@ -35,8 +35,10 @@ class index:
 
 class room:
     def GET(self,id):
+        room = Room.query(Room.Id == int(id)).fetch(1)[0]
         messages = Message.query(Message.Room.Id==int(id)).order(Message.Timestamp).fetch()
-        return plainRender.room(messages)
+        room.messages = messages
+        return plainRender.room(room)
 
 class rooms:
     def GET(self):
