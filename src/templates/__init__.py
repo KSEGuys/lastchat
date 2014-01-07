@@ -106,9 +106,6 @@ def room (room):
     extend_([u'            </div>\n'])
     extend_([u'        </div>\n'])
     extend_([u'    </div>\n'])
-    extend_([u'\n'])
-    extend_([u'\n'])
-    extend_([u'<script type="text/javascript" src="/_ah/channel/jsapi"></script>\n'])
 
     return self
 
