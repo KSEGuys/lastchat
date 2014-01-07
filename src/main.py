@@ -53,7 +53,7 @@ class identity:
         newIdentity = existedIdentity
 
         if existedIdentity:
-            entity = Identity.query(Identity.UUID==existedIdentity).get
+            entity = Identity.query(Identity.UUID==existedIdentity).get()
             if entity:
                 if name:
                     entity.DisplayName=name
@@ -67,7 +67,12 @@ class identity:
         web.setcookie(cookieName,newIdentity)
         return newIdentity
 
+
+def notfound():
+    return web.notfound(render.index())
+
 app = web.application(urls, globals())
+app.notfound = notfound
 
 app = app.gaerun()
 
