@@ -1,16 +1,24 @@
 $(document).ready(function(){
     var pageLoadEvent, setUI, bindEvents;
     pageLoadEvent = function(){
-        setUI;
+        setUI();
+        bindEvents();
         };
 
     setUI = function(){
-        $('#rooms > ul').mixitup();
+        
         };
 
     bindEvents = function(){
-        $('li.mix').on('click',function(){});
+        // remove old content loaded in modal dialog
+        // Thanks to http://stackoverflow.com/a/18134067/553073
+        $('body').on('hidden.bs.modal', '.modal', function () {
+            $(this).removeData('bs.modal');
+            });
         };
 
-    (function(){pageLoadEvent()})();
+    (function(){
+        pageLoadEvent();
+        
+        })();
     });
