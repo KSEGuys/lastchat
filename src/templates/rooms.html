@@ -2,6 +2,9 @@ $def with(rooms)
 $var title='Talk here! - Rooms'
 <script type="text/javascript" charset="utf-8" src='/static/js/page.rooms.js'></script>
 <link rel="stylesheet" href="/static/css/rooms.css" title="" type="text/css" />
+<div class="nav utils">
+    <button class="btn btn-default action changeUser"><span class="glyphicon glyphicon-user"></span></button>
+</div>
 <div class="modal fade" id="modal-room" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop='static'></div>
 <div id="rooms" class="center-block">
     <div>
@@ -15,7 +18,7 @@ $var title='Talk here! - Rooms'
                 <div class="item
                     $if loop.first:
                         active
-                    "">
+                    ">
                         <img src="/static/images/room-background-default.jpg">
                         <div class="carousel-caption">
                             <h3>$room.Topic</h3>

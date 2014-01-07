@@ -15,6 +15,12 @@ $(document).ready(function(){
         $('body').on('hidden.bs.modal', '.modal', function () {
             $(this).removeData('bs.modal');
             });
+
+        $('.nav button.action.changeUser').on('click',function(){
+            $.removeCookie('name');
+            $.removeCookie('identity');
+            window.location.href='/';
+            });
         };
 
     (function(){

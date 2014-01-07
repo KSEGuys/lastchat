@@ -123,6 +123,9 @@ def rooms(rooms):
     self['title'] = 'Talk here! - Rooms'
     extend_([u'<script type="text/javascript" charset="utf-8" src=\'/static/js/page.rooms.js\'></script>\n'])
     extend_([u'<link rel="stylesheet" href="/static/css/rooms.css" title="" type="text/css" />\n'])
+    extend_([u'<div class="nav utils">\n'])
+    extend_([u'    <button class="btn btn-default action changeUser"><span class="glyphicon glyphicon-user"></span></button>\n'])
+    extend_([u'</div>\n'])
     extend_([u'<div class="modal fade" id="modal-room" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop=\'static\'></div>\n'])
     extend_([u'<div id="rooms" class="center-block">\n'])
     extend_([u'    <div>\n'])
@@ -136,7 +139,7 @@ def rooms(rooms):
         extend_(['                ', u'<div class="item\n'])
         if loop.first:
             extend_(['                    ', u'active\n'])
-        extend_(['                ', u'    "">\n'])
+        extend_(['                ', u'    ">\n'])
         extend_(['                ', u'        <img src="/static/images/room-background-default.jpg">\n'])
         extend_(['                ', u'        <div class="carousel-caption">\n'])
         extend_(['                ', u'            <h3>', escape_(room.Topic, True), u'</h3>\n'])

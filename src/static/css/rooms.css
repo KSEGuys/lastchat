@@ -7,3 +7,9 @@ div.carousel-caption a
 {
     margin-bottom: 1em;
 }
+
+div.nav.utils{
+    position:absolute;
+    right:0;
+    top:0;
+}
