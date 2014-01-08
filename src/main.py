@@ -13,8 +13,7 @@ urls = (
         '/identity','identity',
         '/room/(.+)','room',
         '/message','message',
-        '/messagestyle','messageStyle',
-        '/reset','reset'
+        '/messagestyle','messageStyle'
         )
 
 templateGlobals = {
@@ -28,18 +27,6 @@ plainRender = web.template.render(templateDir, globals=templateGlobals)
 templateGlobals["plainRender"] = plainRender
 render = web.template.render(templateDir,base='layout',globals=templateGlobals)
 templateGlobals["render"] = render
-
-class reset:
-    def GET(self):
-        for message in Message.query().fetch():
-            message.key.delete()
-        for room in Room.query().fetch():
-            room.key.delete()
-        for user in Identity.query().fetch():
-            user.key.delete()
-
-        Room.Put('Default Room')
-        return 'empty'
 
 class index:
     def GET(self):
