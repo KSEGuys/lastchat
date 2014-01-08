@@ -3,11 +3,9 @@
 
 from lib import web
 from google.appengine.api import channel
-from google.appengine.ext import ndb
 from datetime import datetime
-from models import Room,Message,Identity
 
-import uuid
+from models import Room,Message,Identity
 
 urls = (
         "/",'index',
@@ -15,7 +13,8 @@ urls = (
         '/identity','identity',
         '/room/(.+)','room',
         '/message','message',
-        '/messagestyle','messageStyle'
+        '/messagestyle','messageStyle',
+        '/reset','reset'
         )
 
 templateGlobals = {
@@ -30,26 +29,38 @@ templateGlobals["plainRender"] = plainRender
 render = web.template.render(templateDir,base='layout',globals=templateGlobals)
 templateGlobals["render"] = render
 
+class reset:
+    def GET(self):
+        for message in Message.query().fetch():
+            message.key.delete()
+        for room in Room.query().fetch():
+            room.key.delete()
+        for user in Identity.query().fetch():
+            user.key.delete()
+
+        Room.Put('Default Room')
+        return 'empty'
+
 class index:
     def GET(self):
         return render.index()
 
 class room:
     def GET(self,id):
-        room = Room.query(Room.Id == int(id)).get()
-        messages = Message.query(Message.Room.Id==int(id)).order(Message.Timestamp).fetch()
+        room = Room.Query(id)
+        messages = Message.GetByRoom(id)
         room.messages = messages
         return plainRender.room(room)
 
 class rooms:
     def GET(self):
-        rooms = Room.query().fetch()
+        rooms = Room.All()
         return render.rooms(rooms)
 
 class message:
     def POST(self):
         data = web.input()
-        Message.Put(data.Identity,data.Content,int(data.RoomId))
+        Message.Put(data.Identity,data.Content,data.RoomId)
         return 'success'
 
 class messageStyle:
@@ -62,29 +73,19 @@ class identity:
         ip = web.ctx.ip
         cookieName_identity = 'identity'
         cookieName_name = 'name'
-        existedIdentity = web.cookies().get(cookieName_identity)
-        newIdentity = existedIdentity
+        identity  = web.cookies().get(cookieName_identity)
 
-        if existedIdentity:
-            entity = Identity.query(Identity.UUID==existedIdentity).get()
-            if entity:
-                if name:
-                    entity.DisplayName=name
-                else:
-                    name = entity.DisplayName
+        user = None
 
-                entity.IpAddress=ip
-                entity.put()
-                web.setcookie
-        else:
-            newEntity = Identity(UUID=str(uuid.uuid4()),DisplayName=name,IpAddress=ip)
-            newEntity.put()
-            newIdentity = newEntity.UUID
+        if identity:
+            user = Identity.Update(identity,name,ip)
+        if not user:
+            user = Identity.Put(name,ip)
 
-        web.setcookie(cookieName_identity,newIdentity)
-        web.setcookie(cookieName_name,name)
+        web.setcookie(cookieName_identity,user.UUID)
+        web.setcookie(cookieName_name,user.DisplayName)
 
-        return newIdentity
+        return user.UUID
 
 
 def notfound():
