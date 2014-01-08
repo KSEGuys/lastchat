@@ -61,7 +61,7 @@ def message (message):
     extend_([u'    <div class="avatar"></div>\n'])
     extend_([u'    <div class="text">\n'])
     extend_([u'        <div class="info">\n'])
-    extend_([u'            <span class="name">', escape_(message.User, True), u'</span>\n'])
+    extend_([u'            <span class="name">', escape_(message.User.DisplayName, True), u'</span>\n'])
     extend_([u'            <time class="timeago" datetime=\'', escape_(message.Timestamp, True), u"'></time>\n"])
     extend_([u'        </div>\n'])
     extend_([u'        <div class="content">\n'])
