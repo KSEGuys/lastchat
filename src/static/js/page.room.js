@@ -1,9 +1,7 @@
 var page = window.page || {};
 page.room = page.room || {};
-page.room.utils = page.room.utils || 
-{
+page.room.utils = page.room.utils || {
     'appendMessage': function(data){
-
         $.get('/messagestyle',function(html){
             message = $(html);
             var user = $.cookie('identity');
@@ -16,6 +14,13 @@ page.room.utils = page.room.utils ||
             message.find('.name').text(data.user.name).data('uuid',data.user.id);
             message.find('.content span').text(data.content);
         }); 
+
+        page.room.utils.scrollToBottom();
+    },
+    'scrollToBottom': function(){
+        $('div.message-container.modal-body').animate({
+            scrollTop: $('div.message-container.modal-body')[0].scrollHeight
+        },100);
     }
 };
 $(document).ready(function(){
@@ -39,6 +44,7 @@ $(document).ready(function(){
             }
         });
 
+        window.setTimeout(page.room.utils.scrollToBottom,500);
     };
 
     bindEvent = function(){
@@ -72,11 +78,10 @@ $(document).ready(function(){
 
         socket.onmessage = function(data){
             var message = JSON.parse(data.data);
-            console.log(message);
             page.room.utils.appendMessage(message);
         };
         
-        $('div.chatbox textarea').on('keydown',function(e){
+        $('div.chatbox textarea').on('keypress',function(e){
             if(e.which == 13 && !e.shiftKey && !e.ctrlKey){
                 e.preventDefault();
                 $('button.action.send').trigger('click');
