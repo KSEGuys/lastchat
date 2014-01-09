@@ -87,7 +87,6 @@ def room (room):
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
     self['title'] = join_(u'Talk here! - Homepage')
-    extend_([u'<script type="text/javascript" src="/_ah/channel/jsapi"></script>\n'])
     extend_([u'<script type="text/javascript" charset="utf-8" src="/static/js/page.room.js"></script>\n'])
     extend_([u'<link rel="stylesheet" href="/static/css/room.css" title="" type="text/css" />\n'])
     extend_([u'<input type="hidden" name="" id="roomId" value="', escape_(room.UUID, True), u'" />\n'])
@@ -125,6 +124,7 @@ def rooms(rooms):
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
     self['title'] = 'Talk here! - Rooms'
+    extend_([u'<script type="text/javascript" src="/_ah/channel/jsapi"></script>\n'])
     extend_([u'<script type="text/javascript" charset="utf-8" src=\'/static/js/page.rooms.js\'></script>\n'])
     extend_([u'<link rel="stylesheet" href="/static/css/rooms.css" title="" type="text/css" />\n'])
     extend_([u'<div class="nav utils">\n'])
