@@ -75,7 +75,13 @@ $(document).ready(function(){
             console.log(message);
             page.room.utils.appendMessage(message);
         };
-
+        
+        $('div.chatbox textarea').on('keydown',function(e){
+            if(e.which == 13 && !e.shiftKey && !e.ctrlKey){
+                e.preventDefault();
+                $('button.action.send').trigger('click');
+            }
+        });
 
     };
 
