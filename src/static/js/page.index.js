@@ -20,11 +20,11 @@ $(document).ready(function(){
             if(identity == undefined) return;
         }
         // redirect to /rooms if we had a identity cookie
-        $.post('/identity',{'name':name})
-            .done(function(data){
-                if(data== undefined) return;
-                window.location.href = '/rooms';
-            });
+        $.post('/identity',{'name':name}).done(
+                function(data){
+                    if(data== undefined) return;
+                    window.location.href = '/rooms';
+                });
     };
 
     bindEvents = function(){
