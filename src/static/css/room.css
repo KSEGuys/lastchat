@@ -72,3 +72,6 @@ div.message.self div.text
     text-align: left;
 }
 
+div.chatbox textarea{
+    redize: vertical;
+}
