@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import uuid
 from lib import web
 from google.appengine.api import channel
+from google.appengine.api import memcache
 from datetime import datetime
 
 from models import Room,Message,Identity
@@ -37,6 +39,15 @@ class room:
         room = Room.Query(id)
         messages = Message.GetByRoom(id)
         room.messages = messages
+        channelId = uuid.uuid4().hex
+        room.token = channel.create_channel(channelId)
+
+        channels = memcache.get(room.UUID) or []
+        if channelId not in channels:
+            channels.append(channelId)
+
+        memcache.set(room.UUID,channels,3600)
+
         return plainRender.room(room)
 
 class rooms:
@@ -47,8 +58,11 @@ class rooms:
 class message:
     def POST(self):
         data = web.input()
-        Message.Put(data.Identity,data.Content,data.RoomId)
-        return 'success'
+        message = Message.Put(data.Identity,data.Content,data.RoomId)
+        if message:
+            channels = memcache.get(data.RoomId) or []
+            for channelId in channels:
+                channel.send_message(channelId,message.ToJSON())
 
 class messageStyle:
     def GET(self):

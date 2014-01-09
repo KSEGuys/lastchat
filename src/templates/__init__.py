@@ -61,7 +61,10 @@ def message (message):
     extend_([u'    <div class="avatar"></div>\n'])
     extend_([u'    <div class="text">\n'])
     extend_([u'        <div class="info">\n'])
-    extend_([u'            <span class="name">\n'])
+    extend_([u'            <span class="name" data-uuid="\n'])
+    if message.User:
+        extend_(['                ', escape_(message.User.UUID, True), u'\n'])
+    extend_([u'                ">\n'])
     if message.User:
         extend_(['                ', escape_(message.User.DisplayName, True), u'\n'])
     extend_([u'                </span>\n'])
@@ -84,10 +87,11 @@ def room (room):
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
     self['title'] = join_(u'Talk here! - Homepage')
+    extend_([u'<script type="text/javascript" src="/_ah/channel/jsapi"></script>\n'])
     extend_([u'<script type="text/javascript" charset="utf-8" src="/static/js/page.room.js"></script>\n'])
     extend_([u'<link rel="stylesheet" href="/static/css/room.css" title="" type="text/css" />\n'])
     extend_([u'<input type="hidden" name="" id="roomId" value="', escape_(room.UUID, True), u'" />\n'])
-    extend_([u'\n'])
+    extend_([u'<div id="parameters" data-channelToken="', escape_(room.token, True), u'" class="hidden"></div>\n'])
     extend_([u'<div class="modal-dialog">\n'])
     extend_([u'    <div class="modal-content">\n'])
     extend_([u'        <div class="topic modal-header">\n'])
