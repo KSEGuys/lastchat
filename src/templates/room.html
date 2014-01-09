@@ -4,24 +4,24 @@ $var title: Talk here! - Homepage
 <link rel="stylesheet" href="/static/css/room.css" title="" type="text/css" />
 <input type="hidden" name="" id="roomId" value="$room.UUID" />
 
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="topic modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>$room.Topic</h4>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="topic modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4>$room.Topic</h4>
+        </div>
+        <div class="message-container modal-body">
+            $for message in room.messages:
+                $:plainRender.message(message)
+        </div>
+        <div class="editor modal-footer">
+            <div class="chatbox">
+                <textarea class="form-control" rows="3" autofocus='autofocus'></textarea>
             </div>
-            <div class="message-container modal-body">
-                $for message in room.messages:
-                    $:plainRender.message(message)
-            </div>
-            <div class="editor modal-footer">
-                <div class="chatbox">
-                    <textarea class="form-control" rows="3" autofocus='autofocus'></textarea>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-default clear action">Clear</button>
-                    <button type="button" class="btn btn-primary send action">Send</button>
-                </div>
+            <div>
+                <button type="button" class="btn btn-default clear action">Clear</button>
+                <button type="button" class="btn btn-primary send action">Send</button>
             </div>
         </div>
     </div>
+</div>
