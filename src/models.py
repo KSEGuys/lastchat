@@ -66,7 +66,7 @@ class Message(ndb.Model):
 
     @classmethod
     def GetByRoom(cls,roomId):
-        return Message.query(Message.Room.UUID == roomId).fetch()
+        return Message.query(Message.Room.UUID == roomId).order(Message.Timestamp).fetch()
 
     def ToJSON(self):
         return '{"id":"%s","user":{"id":"%s","name":"%s"},"time":"%s","content":"%s"}'\

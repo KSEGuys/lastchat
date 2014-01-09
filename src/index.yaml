@@ -14,3 +14,8 @@ indexes:
   properties:
   - name: Room.Id
   - name: Timestamp
+
+- kind: Message
+  properties:
+  - name: Room.UUID
+  - name: Timestamp
