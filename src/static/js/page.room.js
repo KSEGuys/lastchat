@@ -80,10 +80,14 @@ $(document).ready(function(){
             });
 
         });
-
+        
+        if(page.room.socket!=undefined){
+            page.room.socket.close();
+        }
         var token = $('#parameters').data('channeltoken');
         var channel = new goog.appengine.Channel(token);
         var socket = channel.open();
+        page.room.socket = socket;
 
         socket.onmessage = function(data){
             var message = JSON.parse(data.data);
