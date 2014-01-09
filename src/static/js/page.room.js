@@ -9,7 +9,7 @@ page.room.utils = page.room.utils || {
                 message.addClass('self');
             }
             message.appendTo('.message-container');
-            message.find('.timeago').attr('datetime',data.time);
+            message.find('.timeago').attr('datetime',page.room.utils.utc2local(data.time));
             message.find('.timeago').timeago();
             message.find('.name').text(data.user.name).data('uuid',data.user.id);
             message.find('.content span').text(data.content);
@@ -21,6 +21,10 @@ page.room.utils = page.room.utils || {
         $('div.message-container.modal-body').animate({
             scrollTop: $('div.message-container.modal-body')[0].scrollHeight
         },100);
+    },
+    'utc2local':function(time){
+        var date = new Date(time + 'UTC');
+        return date.toISOString();
     }
 };
 $(document).ready(function(){
@@ -31,6 +35,11 @@ $(document).ready(function(){
     };
 
     setUI = function(){
+        // Convert UTC time to local
+        $('.timeago').each(function(index, element){
+            var element = $(element);
+            element.attr('datetime',page.room.utils.utc2local(element.attr('datetime')));
+        });
         // timeago
         $('.timeago').timeago();
         
