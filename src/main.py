@@ -5,30 +5,9 @@ import uuid
 from lib import web
 from google.appengine.api import channel
 from google.appengine.api import memcache
-from datetime import datetime
 
-from models import Room,Message,Identity
-
-urls = (
-        "/",'index',
-        "/rooms","rooms",
-        '/identity','identity',
-        '/room/(.+)','room',
-        '/message','message',
-        '/messagestyle','messageStyle'
-        )
-
-templateGlobals = {
-        "strftime": datetime.strftime,
-        "str": str
-        }
-
-templateDir = 'templates'
-
-plainRender = web.template.render(templateDir, globals=templateGlobals)
-templateGlobals["plainRender"] = plainRender
-render = web.template.render(templateDir,base='layout',globals=templateGlobals)
-templateGlobals["render"] = render
+from models import *
+from config import urls,render
 
 class index:
     def GET(self):
@@ -94,8 +73,7 @@ def notfound():
 
 app = web.application(urls, globals())
 app.notfound = notfound
-
 app = app.gaerun()
 
 #if __name__ == '__main__':
-#    app.run()
+#    app.gaerun()

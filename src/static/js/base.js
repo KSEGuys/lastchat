@@ -1,6 +1,6 @@
 (function(){
     // use timeago
-    $('.timeago').timeago();i
+    $('.timeago').timeago();
 
     $(window).bind("beforeunload",function(){
         // close socket before unload
@@ -8,5 +8,5 @@
             page.room.socket.close();    
             page.room.socket = undefined;
         }
-    }
+    });
 }());
