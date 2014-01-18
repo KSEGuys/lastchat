@@ -7,7 +7,7 @@ from google.appengine.api import channel
 from google.appengine.api import memcache
 
 from models import *
-from config import urls,render,plainRender
+from config import urls,render,plainRender,_cookie_expire_time
 
 class index:
     def GET(self):
@@ -62,8 +62,8 @@ class identity:
         if not user:
             user = Identity.Put(name,ip)
 
-        web.setcookie(cookieName_identity,user.UUID)
-        web.setcookie(cookieName_name,user.DisplayName)
+        web.setcookie(cookieName_identity,user.UUID,_cookie_expire_time)
+        web.setcookie(cookieName_name,user.DisplayName,_cookie_expire_time)
 
         return user.UUID
 

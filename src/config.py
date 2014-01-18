@@ -4,6 +4,11 @@
 from lib import web
 from datetime import datetime
 
+# config
+
+# 30 days
+_cookie_expire_time = 3600 * 24 * 30
+
 # host info
 urls = (
         "/",'index',
