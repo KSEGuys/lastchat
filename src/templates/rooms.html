@@ -12,20 +12,21 @@ $var title='Talk here! - Rooms'
         <div id="rooms-slide-carousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 $for i in range(0,len(rooms)):
-                    <li data-target="#rooms-slide-carousel" data-slide-to="$i"></li>
+                <li data-target="#rooms-slide-carousel" data-slide-to="$i"></li>
             </ol>
             <div class="carousel-inner">
                 $for room in rooms:
                     <div class="item
                         $if loop.first:
-                            active
+                        active
                     ">
-                    <img src="/static/images/room-background-default.jpg">
-                    <div class="carousel-caption">
-                        <h3>$room.Topic</h3>
-                        <a class="btn btn-primary" data-toggle="modal" href="/room/$room.UUID" data-target="#modal-room">Join this room!</a>
+                        <img src="/static/images/room-background-default.jpg">
+                        <div class="carousel-caption">
+                            <h3>$room.Topic</h3>
+                            <a class="btn btn-primary" data-toggle="modal" href="/room/$room.UUID" 
+                                data-target="#modal-room">Join this room!</a>
+                        </div>
                     </div>
-                </div>
             </div>
             <a class="left carousel-control" href="#rooms-slide-carousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -34,7 +35,6 @@ $var title='Talk here! - Rooms'
             <a class="right carousel-control" href="#rooms-slide-carousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
-
         </div>
     </div>
 </div>
