@@ -124,7 +124,7 @@ def rooms(rooms):
     loop = ForLoop()
     self = TemplateResult(); extend_ = self.extend
     self['title'] = 'Talk here! - Rooms'
-    extend_([u'<script type="text/javascript" src="/_ah/channel/jsapi"></script>\n'])
+    extend_([u'<script type="text/javascript" src="/static/js/gae.channel.js"></script>\n'])
     extend_([u'<script type="text/javascript" charset="utf-8" src=\'/static/js/page.rooms.js\'></script>\n'])
     extend_([u'<link rel="stylesheet" href="/static/css/rooms.css" title="" type="text/css" />\n'])
     extend_([u'<div class="nav utils">\n'])
