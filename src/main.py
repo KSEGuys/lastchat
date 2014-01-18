@@ -7,7 +7,7 @@ from google.appengine.api import channel
 from google.appengine.api import memcache
 
 from models import *
-from config import urls,render
+from config import urls,render,plainRender
 
 class index:
     def GET(self):
