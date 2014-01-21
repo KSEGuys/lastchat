@@ -63,7 +63,7 @@ def message (message):
     extend_([u'        <div class="info">\n'])
     extend_([u'            <span class="name" data-uuid="\n'])
     if message.User:
-        extend_(['                ', escape_(message.User.UUID, True), u'\n'])
+        extend_(['                ', escape_(message.User.Id, True), u'\n'])
     extend_([u'                ">\n'])
     if message.User:
         extend_(['                ', escape_(message.User.DisplayName, True), u'\n'])
@@ -89,7 +89,7 @@ def room (room):
     self['title'] = join_(u'Talk here! - Homepage')
     extend_([u'<script type="text/javascript" charset="utf-8" src="/static/js/page.room.js"></script>\n'])
     extend_([u'<link rel="stylesheet" href="/static/css/room.css" title="" type="text/css" />\n'])
-    extend_([u'<input type="hidden" name="" id="roomId" value="', escape_(room.UUID, True), u'" />\n'])
+    extend_([u'<input type="hidden" name="" id="roomId" value="', escape_(room.Id, True), u'" />\n'])
     extend_([u'<div id="parameters" data-channelToken="', escape_(room.token, True), u'" class="hidden"></div>\n'])
     extend_([u'<div class="modal-dialog">\n'])
     extend_([u'    <div class="modal-content">\n'])
@@ -147,7 +147,7 @@ def rooms(rooms):
         extend_(['                ', u'    <img src="/static/images/room-background-default.jpg">\n'])
         extend_(['                ', u'    <div class="carousel-caption">\n'])
         extend_(['                ', u'        <h3>', escape_(room.Topic, True), u'</h3>\n'])
-        extend_(['                ', u'        <a class="btn btn-primary" data-toggle="modal" href="/room/', escape_(room.UUID, True), u'" \n'])
+        extend_(['                ', u'        <a class="btn btn-primary" data-toggle="modal" href="/room/', escape_(room.Id, True), u'" \n'])
         extend_(['                ', u'            data-target="#modal-room">Join this room!</a>\n'])
         extend_(['                ', u'    </div>\n'])
         extend_(['                ', u'</div>\n'])

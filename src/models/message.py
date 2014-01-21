@@ -1,29 +1,29 @@
-import uuid
+from uuid import uuid4
 from google.appengine.ext import ndb
+from model import Model
 from room import Room
 from identity import Identity
 
-class Message(ndb.Model):
+class Message(Model):
     Timestamp = ndb.DateTimeProperty(auto_now_add=True)
     User = ndb.StructuredProperty(Identity)
     Content = ndb.StringProperty(indexed=False)
     Room = ndb.StructuredProperty(Room)
-    UUID = ndb.StringProperty()
 
     @classmethod
-    def Put(cls, user,content,roomId):
-        room = Room.Query(roomId)
-        user = Identity.Query(user)
+    def Put(cls, userId,content,roomId):
+        room = Room.Get(roomId)
+        user = Identity.Get(userId)
         if room and user:
-            message = Message(User = user, Content = content, Room = room, UUID = str(uuid.uuid4()))
+            message = Message(User = user, Content = content, Room = room, Id = uuid4().hex)
             message.put()
             return message
         return None
 
     @classmethod
     def GetByRoom(cls,roomId):
-        return Message.query(Message.Room.UUID == roomId).order(Message.Timestamp).fetch()
+        return Message.query(Message.Room.Id == roomId).order(Message.Timestamp).fetch()
 
     def ToJSON(self):
         return '{"id":"%s","user":{"id":"%s","name":"%s"},"time":"%s","content":"%s"}'\
-                %(self.UUID,self.User.UUID,self.User.DisplayName,str(self.Timestamp),self.Content)
+                %(self.Id,self.User.Id,self.User.DisplayName,str(self.Timestamp),self.Content)

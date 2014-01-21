@@ -15,17 +15,17 @@ class index:
 
 class room:
     def GET(self,id):
-        room = Room.Query(id)
+        room = Room.Get(id)
         messages = Message.GetByRoom(id)
         room.messages = messages
         channelId = uuid.uuid4().hex
         room.token = channel.create_channel(channelId)
 
-        channels = memcache.get(room.UUID) or []
+        channels = memcache.get(room.Id) or []
         if channelId not in channels:
             channels.append(channelId)
 
-        memcache.set(room.UUID,channels,3600)
+        memcache.set(room.Id,channels,3600)
 
         return plainRender.room(room)
 
@@ -54,18 +54,18 @@ class identity:
         cookieName_identity = 'identity'
         cookieName_name = 'name'
         identity  = web.cookies().get(cookieName_identity)
-
+        browserId = ''
         user = None
 
         if identity:
-            user = Identity.Update(identity,name,ip)
+            user = Identity.Update(identity,name,ip,browserId)
         if not user:
-            user = Identity.Put(name,ip)
+            user = Identity.Put(name,ip,browserId)
 
-        web.setcookie(cookieName_identity,user.UUID,_cookie_expire_time)
+        web.setcookie(cookieName_identity,user.Id,_cookie_expire_time)
         web.setcookie(cookieName_name,user.DisplayName,_cookie_expire_time)
 
-        return user.UUID
+        return user.Id
 
 
 def notfound():

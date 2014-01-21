@@ -1,20 +1,12 @@
-import uuid
+from uuid import uuid4
 from google.appengine.ext import ndb
+from model import Model
 
-class Room(ndb.Model):
+class Room(Model):
     Topic = ndb.StringProperty()
-    UUID = ndb.StringProperty()
 
     @classmethod
     def Put(cls,topic):
-        room = Room(Topic = topic, UUID = str(uuid.uuid4()))
+        room = Room(Topic = topic, Id = uuid4().hex)
         room.put()
         return room
-
-    @classmethod
-    def Query(cls, id):
-        return Room.query(Room.UUID == id).get()
-
-    @classmethod
-    def All(cls):
-        return Room.query().fetch()
